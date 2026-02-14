@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  server:
+    # build: .
+    container_name: 'rsshub-never-die'
+    image: ${DOCKER_IMAGE:-caomeiyouren/rsshub-never-die}
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      TZ: "Asia/Shanghai"
+      RSSHUB_NODE_URLS: 'https://rsshub.rssforever.com, https://hub.slarker.me, https://rsshub.pseudoyu.com, https://rsshub.ktachibana.party, https://rsshub.woodland.cafe, https://rss.owo.nz, https://yangzhi.app, https://rsshub.henry.wang, https://rss.peachyjoy.top, https://rsshub.speednet.icu'
+
+    volumes:
+      - ./logs:/app/logs

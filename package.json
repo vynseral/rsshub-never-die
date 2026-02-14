@@ -1,0 +1,114 @@
+{
+  "name": "rsshub-never-die",
+  "version": "1.2.1",
+  "description": "一个基于 hono 的 RSSHub 代理服务，支持自动负载均衡、自动容错和反向代理 RSSHub 实例，支持 Node.js/Docker/Vercel/Cloudflare Workers 等方式部署。",
+  "author": "CaoMeiYouRen",
+  "private": true,
+  "license": "MIT",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "lint": "cross-env NODE_ENV=production eslint . --fix --ext .ts,.js,.cjs,.mjs",
+    "release": "semantic-release",
+    "prebuild": "rimraf dist",
+    "build": "cross-env NODE_ENV=production tsup",
+    "dev": "cross-env NODE_ENV=development tsx watch src/index.ts",
+    "dev:tsup": "cross-env NODE_ENV=development tsup --watch",
+    "start": "node ./dist/index.mjs",
+    "start:tsx": "cross-env NODE_ENV=production tsx src/index.ts",
+    "commit": "cz",
+    "prepare": "husky install",
+    "dev:vercel": "vercel dev",
+    "deploy:vercel": "vercel",
+    "dev:wrangler": "wrangler dev --env dev",
+    "deploy:wrangler": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260131.0",
+    "@commitlint/cli": "^20.4.0",
+    "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^25.1.0",
+    "@vercel/nft": "^1.3.0",
+    "commitizen": "^4.3.1",
+    "commitlint-config-cmyr": "^1.0.0",
+    "cross-env": "^10.1.0",
+    "cz-conventional-changelog-cmyr": "^2.0.0",
+    "debug": "^4.4.3",
+    "eslint": "^9.39.2",
+    "eslint-config-cmyr": "2.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "rimraf": "^6.1.2",
+    "semantic-release": "25.0.3",
+    "semantic-release-cmyr-config": "^1.0.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vercel": "^50.9.6",
+    "wrangler": "^4.54.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog-cmyr"
+    }
+  },
+  "changelog": {
+    "language": "zh"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "RSSHub",
+    "Proxy",
+    "LoadBalancer",
+    "Vercel",
+    "Cloudflare Workers",
+    "Docker"
+  ],
+  "homepage": "https://github.com/CaoMeiYouRen/rsshub-never-die#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaoMeiYouRen/rsshub-never-die.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CaoMeiYouRen/rsshub-never-die/issues"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.9",
+    "dotenv": "^17.2.3",
+    "hono": "^4.11.7",
+    "tslib": "^2.8.0",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "compare-func": "^2.0.0"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ]
+  },
+  "type": "module"
+}
